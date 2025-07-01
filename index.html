@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swaad India – Traditional Indian Restaurant</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Raleway', sans-serif; }
+    .font-cursive { font-family: 'Great Vibes', cursive; }
+  </style>
+</head>
+<body class="bg-yellow-50 text-gray-800">
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    function App() {
+      const [language, setLanguage] = useState('en');
+      useEffect(() => { AOS.init({ duration: 1000 }); }, []);
+      const translations = {
+        en: { title: 'Swaad India', experience: 'Experience the Flavors of India', subtitle: 'Authentic, spicy, and full of love. Straight from our kitchen to your heart.', storyTitle: 'Our Story', storyText: 'At Swaad India, we bring you traditional Indian cuisine made with ancient recipes and hand-picked spices.', menuTitle: 'Our Signature Dishes', contactTitle: 'Contact Us', address: '123 Curry Lane, Delhi, India', phone: '+91-9876543210', email: 'hello@swaadindia.com', bookTable: 'Book a Table' },
+        hi: { title: 'स्वाद इंडिया', experience: 'भारत के स्वाद का अनुभव करें', subtitle: 'प्रामाणिक, मसालेदार और प्यार से भरा। हमारी रसोई से सीधे आपके दिल तक।', storyTitle: 'हमारी कहानी', storyText: 'स्वाद इंडिया में, हम आपको पारंपरिक भारतीय व्यंजन लाते हैं जो प्राचीन व्यंजनों और हाथ से चुने गए मसालों से बनाए जाते हैं।', menuTitle: 'हमारे विशेष व्यंजन', contactTitle: 'संपर्क करें', address: '123 करी लेन, दिल्ली, भारत', phone: '+91-9876543210', email: 'hello@swaadindia.com', bookTable: 'टेबल बुक करें' }
+      };
+      const t = translations[language];
+      return (
+        <div>
+          <header className="bg-red-800 text-white p-4 flex justify-between items-center">
+            <h1 className="text-3xl font-cursive">{t.title}</h1>
+            <div className="space-x-4">
+              <button onClick={() => setLanguage('en')}>EN</button>
+              <button onClick={() => setLanguage('hi')}>हिंदी</button>
+            </div>
+          </header>
+          <section className="h-[70vh] bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092')" }}>
+            <div className="bg-black bg-opacity-60 p-8 rounded text-center text-white" data-aos="fade-up">
+              <h2 className="text-4xl font-cursive mb-4">{t.experience}</h2>
+              <p>{t.subtitle}</p>
+            </div>
+          </section>
+          <section className="py-12 bg-yellow-100 text-center" data-aos="fade-up">
+            <h2 className="text-3xl font-bold mb-4">{t.storyTitle}</h2>
+            <p className="max-w-2xl mx-auto text-lg">{t.storyText}</p>
+          </section>
+          <section className="py-12 text-center" data-aos="fade-up">
+            <h2 className="text-3xl font-bold mb-8">{t.menuTitle}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+              {['butter-chicken', 'biryani', 'samosa'].map((dish, index) => (
+                <div key={index} className="bg-white rounded shadow p-4">
+                  <img src={`https://source.unsplash.com/300x200/?${dish}`} alt={dish} className="rounded mb-2" />
+                  <h3 className="font-semibold text-xl capitalize">{dish.replace('-', ' ')}</h3>
+                  <p className="text-sm text-gray-600">Delicious and authentic taste.</p>
+                </div>
+              ))}
+            </div>
+          </section>
+          <section className="bg-red-800 text-white py-12 text-center" data-aos="fade-up">
+            <h2 className="text-3xl font-bold mb-4">{t.contactTitle}</h2>
+            <p className="mb-2">📍 {t.address}</p>
+            <p className="mb-2">📞 {t.phone}</p>
+            <p>📧 {t.email}</p>
+            <form className="bg-white text-gray-800 max-w-md mx-auto mt-8 p-6 rounded shadow">
+              <h3 className="text-xl font-semibold mb-4">{t.bookTable}</h3>
+              <input type="text" placeholder="Name" className="w-full mb-3 p-2 border rounded" />
+              <input type="email" placeholder="Email" className="w-full mb-3 p-2 border rounded" />
+              <input type="tel" placeholder="Phone" className="w-full mb-3 p-2 border rounded" />
+              <input type="date" className="w-full mb-3 p-2 border rounded" />
+              <button type="submit" className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-600">Reserve</button>
+            </form>
+          </section>
+          <footer className="bg-red-900 text-yellow-200 text-center py-4">
+            &copy; 2025 Swaad India. All rights reserved.
+          </footer>
+        </div>
+      );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
